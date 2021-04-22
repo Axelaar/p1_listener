@@ -14,6 +14,7 @@ Smart meters in compliance with DSMR or ESMR standards are fitted with a P1-port
   <li>sudo apt full-upgrade -y
   <li>sudo apt clean
   <li>sudo reboot
+</ul>
 <h4>Set timezone to UTC</h4>
 Set the timezone  to UTC to avoid missing data or gaps in data when changing from or to Daylight Saving time.
 <ul>
@@ -24,3 +25,4 @@ Set the timezone  to UTC to avoid missing data or gaps in data when changing fro
     Select ‘None of the above’<br>
     Select ‘UTC’<br>
     Exit with ‘OK’ and ‘Finish’ <b>or</b> jump to the next chapter and continue with the configuration tool.</li>
+</ul>
