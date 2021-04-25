@@ -43,3 +43,12 @@ The directory <i>graphs</i> is used with RRDtool, <i>websocketdata</i> is only u
   <li>Add the library to read the serial port using Python:</li>
   <pre><code>sudo apt install python3-serial</code></pre>
 </ul>
+<h4>Install PIP (if necessary)</h4>
+If you installed Raspberry Pi OS Lite then it lacks the pip tool.  Install it now:
+<pre><code>sudo apt install python3-pip -y</code></pre>
+<h4>Install the python timezone library</h4>
+<pre><code>pip3 install pytz</code></pre>
+<h4>Install and configure the round robin database</h4>
+This section will be added later.
+<h4>Install Apache Web Server, Websockets (Autobahn, Twisted)</h4>
+This section will be added later.
