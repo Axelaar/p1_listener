@@ -17,7 +17,7 @@ sudo reboot</code></pre>
 Set the timezone  to UTC to avoid missing data or gaps in data when changing to or from Daylight Saving time.
 <pre><code>sudo raspi-config</code></pre><ul>
   <li>Select ‘Localisation Options’<br>
-    (use the up/down cursor to select a row, then the right cursor to highlight ‘select’, then press the <i>enter</i> key)<br>
+    (use the up/down cursor to select a row, then the right cursor to highlight ‘select’, then press &ltenter&gt)<br>
     Select ‘Timezone’<br>
     Select ‘None of the above’<br>
     Select ‘UTC’<br>
@@ -37,7 +37,7 @@ The directory <i>graphs</i> is used with RRDtool, <i>websocketdata</i> is only u
     <li>For meter versions 4 and 5:</li>
     <pre><code>cu -l /dev/ttyUSB0 -s 115200 --parity=none</code></pre>
   </ul>
-  <li>To exit type:  <enter>~.<br>
+  <li>To exit type:  &ltenter&gt~.<br>
   (so: the enter key, then the tilde followed by the dot)<br>
   Note: there is a slight delay in disconnecting after hitting this key combination.</li>
   <li>Add the library to read the serial port using Python:</li>
