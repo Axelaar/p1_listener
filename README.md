@@ -15,10 +15,9 @@ sudo apt clean
 sudo reboot</code></pre>
 <h4>Set timezone to UTC</h4>
 Set the timezone  to UTC to avoid missing data or gaps in data when changing to or from Daylight Saving time.
-<ul>
-  <li><pre><code>sudo raspi-config</code></pre><br>
-    Select ‘Localisation Options’<br>
-    (use the up/down cursor to select a row, then the right cursor to highlight ‘select’, then press <enter>)<br>
+<pre><code>sudo raspi-config</code></pre><ul>
+  <li>Select ‘Localisation Options’<br>
+    (use the up/down cursor to select a row, then the right cursor to highlight ‘select’, then press the <i>enter</i> key)<br>
     Select ‘Timezone’<br>
     Select ‘None of the above’<br>
     Select ‘UTC’<br>
@@ -32,10 +31,11 @@ The directory <i>graphs</i> is used with RRDtool, <i>websocketdata</i> is only u
   <li>Install the serial tool ‘cu minicom’:</li>
 <pre><code>sudo apt install cu minicom -y</code></pre>
   <li>Verify that the communication is successful:</li>
-<pre><code>cu -l /dev/ttyUSB0 -s 115200 --parity=none</code></pre>
+  <pre><code>cu -l /dev/ttyUSB0 -s 9600 --parity=even</code></pre>for meters
+  <pre><code>cu -l /dev/ttyUSB0 -s 115200 --parity=none</code></pre>
   <li>To exit type:  <enter>~.<br>
   (so: the enter key, then the tilde followed by the dot)<br>
   Note: there is a slight delay in disconnecting after hitting this key combination.</li>
   <li>Add the library to read the serial port using Python:</li>
-<pre><code>sudo apt install python3-serial</code></pre>
+  <pre><code>sudo apt install python3-serial</code></pre>
   </ul>
