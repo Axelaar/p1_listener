@@ -76,7 +76,10 @@ If you installed Raspberry Pi OS Lite then it lacks the pip tool.  Install it no
 <pre><code>sudo apt install python3-pip -y</code></pre>
 <h4>Install the python timezone library</h4>
 <pre><code>pip3 install pytz</code></pre>
-<h4>Install and configure the round robin database</h4>
+<h4>Optional: Install and configure the round robin database</h4>
 This section will be added later.
-<h4>Install Apache Web Server, Websockets (Autobahn, Twisted)</h4>
+<h4>Optional: Install Apache Web Server, Websockets (Autobahn, Twisted)</h4>
 This section will be added later.
+<h4>Set up a symlink to enable testing of the library modules</h4>
+When testing a ‘local_lib’ library module from another directory, the module under certain circumstances requires a symlink to point to the correct folder location.  Set up this symlink:
+<pre><code>ln -s /home/pi/local_lib/ /home/pi/local_lib/</code></pre>
