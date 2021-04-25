@@ -40,6 +40,34 @@ The directory <i>graphs</i> is used with RRDtool, <i>websocketdata</i> is only u
   <li>To exit type:  &ltenter&gt~.<br>
   (so: the enter key, then the tilde followed by the dot)<br>
   Note: there is a slight delay in disconnecting after hitting this key combination.</li>
+  <li>The result should be a repeating series of data sets similar to this:
+<pre><code>/XMX5LGBBLA4402915485
+
+1-3:0.2.8(50)
+0-0:1.0.0(200310123610W)
+0-0:96.1.1(4530303435303034303436393339353137)
+1-0:1.8.1(001164.722*kWh)
+1-0:1.8.2(000965.026*kWh)
+1-0:2.8.1(000252.398*kWh)
+1-0:2.8.2(000589.121*kWh)
+0-0:96.14.0(0002)
+1-0:1.7.0(00.087*kW)
+1-0:2.7.0(00.000*kW)
+0-0:96.7.21(00002)
+0-0:96.7.9(00000)
+1-0:99.97.0(0)(0-0:96.7.19)
+1-0:32.32.0(00001)
+1-0:32.36.0(00000)
+0-0:96.13.0()
+1-0:32.7.0(231.0*V)
+1-0:31.7.0(000*A)
+1-0:21.7.0(00.087*kW)
+1-0:22.7.0(00.000*kW)
+0-1:24.1.0(003)
+0-1:96.1.0(4730303332353635353438333236323137)
+0-1:24.2.1(200310123504W)(01621.615*m3)
+!750D</code></pre></li>
+
   <li>Add the library to read the serial port using Python:</li>
   <pre><code>sudo apt install python3-serial</code></pre>
 </ul>
