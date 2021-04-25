@@ -1,5 +1,5 @@
 <h1>p1_listener</h1>
-Smart meters in compliance with DSMR or ESMR standards are fitted with a P1-port.  Using a serial converter cable this port can be used to listen to the broadcasts made by the meter.  The data can then be processed by (in this case) Python for further handling.  The Python script in this repository is currently set up to forward specific data as an IP-telegram and/or a WebSocket message, and can write to a file or a databese using RRD-tool.
+Smart meters in compliance with DSMR or ESMR standards are fitted with a P1-port.  Using a serial converter cable this port can be used to listen to the broadcasts initiated by the meter.  The data can then be processed by (in this case) Python for further handling.  The Python script in this repository is currently set up to forward specific data as an IP-telegram and/or a WebSocket message, and can write to a file or a database using RRD-tool.
 <h1>Requirements</h1>
 <ul>
   <li>Raspberry Pi<br>
@@ -16,7 +16,7 @@ Smart meters in compliance with DSMR or ESMR standards are fitted with a P1-port
   <li>sudo reboot
 </ul>
 <h4>Set timezone to UTC</h4>
-Set the timezone  to UTC to avoid missing data or gaps in data when changing from or to Daylight Saving time.
+Set the timezone  to UTC to avoid missing data or gaps in data when changing to or from Daylight Saving time.
 <ul>
   <li>sudo raspi-config<br>
     Select ‘Localisation Options’<br>
@@ -25,4 +25,9 @@ Set the timezone  to UTC to avoid missing data or gaps in data when changing fro
     Select ‘None of the above’<br>
     Select ‘UTC’<br>
     Exit with ‘OK’ and ‘Finish’ <b>or</b> jump to the next chapter and continue with the configuration tool.</li>
+</ul>
+<h4>Create directories for organizing files</h4>
+The directory <i>graphs</i> is used with RRDtool, <i>websocketdata</i> is only used when WebSockets are used.
+<ul>
+  <li>mkdir {dsmr, graphs, local_lib, logs, websocketdata}</li>
 </ul>
