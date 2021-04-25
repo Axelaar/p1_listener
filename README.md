@@ -29,13 +29,17 @@ The directory <i>graphs</i> is used with RRDtool, <i>websocketdata</i> is only u
 <h4>Configure for Smart Meter data reception</h4>
 <ul>
   <li>Install the serial tool ‘cu minicom’:</li>
-<pre><code>sudo apt install cu minicom -y</code></pre>
+  <pre><code>sudo apt install cu minicom -y</code></pre>
   <li>Verify that the communication is successful:</li>
-  <pre><code>cu -l /dev/ttyUSB0 -s 9600 --parity=even</code></pre>for meters
-  <pre><code>cu -l /dev/ttyUSB0 -s 115200 --parity=none</code></pre>
+  <ul>
+    <li>For meters up to and including version 3:</li>
+    <pre><code>cu -l /dev/ttyUSB0 -s 9600 --parity=even</code></pre>
+    <li>For meter versions 4 and 5:</li>
+    <pre><code>cu -l /dev/ttyUSB0 -s 115200 --parity=none</code></pre>
+  </ul>
   <li>To exit type:  <enter>~.<br>
   (so: the enter key, then the tilde followed by the dot)<br>
   Note: there is a slight delay in disconnecting after hitting this key combination.</li>
   <li>Add the library to read the serial port using Python:</li>
   <pre><code>sudo apt install python3-serial</code></pre>
-  </ul>
+</ul>
