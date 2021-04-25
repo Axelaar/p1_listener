@@ -9,25 +9,33 @@ Smart meters in compliance with DSMR or ESMR standards are fitted with a P1-port
 </ul>
 <h1>Setting up the Raspberry Pi</h1>
 <h4>Make sure the latest updates are installed:</h4>
-<ul>
-  <li>sudo apt update
-  <li>sudo apt full-upgrade -y
-  <li>sudo apt clean
-  <li>sudo reboot
-</ul>
+<pre><code>sudo apt update
+sudo apt full-upgrade -y
+sudo apt clean
+sudo reboot</code></pre>
 <h4>Set timezone to UTC</h4>
 Set the timezone  to UTC to avoid missing data or gaps in data when changing to or from Daylight Saving time.
 <ul>
-  <li>sudo raspi-config<br>
+  <li><pre><code>sudo raspi-config</code></pre><br>
     Select ‘Localisation Options’<br>
     (use the up/down cursor to select a row, then the right cursor to highlight ‘select’, then press <enter>)<br>
     Select ‘Timezone’<br>
     Select ‘None of the above’<br>
     Select ‘UTC’<br>
-    Exit with ‘OK’ and ‘Finish’ <b>or</b> jump to the next chapter and continue with the configuration tool.</li>
+    Exit with ‘OK’ and ‘Finish’.</li>
 </ul>
 <h4>Create directories for organizing files</h4>
 The directory <i>graphs</i> is used with RRDtool, <i>websocketdata</i> is only used when WebSockets are used.
+<pre><code>mkdir {dsmr, graphs, local_lib, logs, websocketdata}</code></pre>
+<h4>Configure for Smart Meter data reception</h4>
 <ul>
-  <li>mkdir {dsmr, graphs, local_lib, logs, websocketdata}</li>
-</ul>
+  <li>Install the serial tool ‘cu minicom’:</li>
+<pre><code>sudo apt install cu minicom -y</code></pre>
+  <li>Verify that the communication is successful:</li>
+<pre><code>cu -l /dev/ttyUSB0 -s 115200 --parity=none</code></pre>
+  <li>To exit type:  <enter>~.<br>
+  (so: the enter key, then the tilde followed by the dot)<br>
+  Note: there is a slight delay in disconnecting after hitting this key combination.</li>
+  <li>Add the library to read the serial port using Python:</li>
+<pre><code>sudo apt install python3-serial</code></pre>
+  </ul>
