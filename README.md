@@ -83,3 +83,13 @@ This section will be added later.
 <h4>Set up a symlink to enable testing of the library modules</h4>
 When testing a ‘local_lib’ library module from another directory, the module under certain circumstances requires a symlink to point to the correct folder location.  Set up this symlink:
 <pre><code>ln -s /home/pi/local_lib/ /home/pi/local_lib/</code></pre>
+<h1>Create the helper files</h1>
+The p1_listener script relies on a telegram definition file.  This file can be created in two steps, using two scripts:
+<ul>
+  <li>Script p1_telegram_discovery.py tries to read the USB0 serial port and capture a single telegram.
+    This telegram is written to a file: /home/pi/dsmr/standard_telegram.txt.</li>
+  <li>Script dsmr_definition.py is used to generate the defition of each line of the telegram, so that
+      the p1_listener script 'knows' where to find the information of each OBIS (= Object Identification System) code.
+      Comment out or uncomment the object_list lines in the this script so that only the lines with the OBIS codes that
+    are needed by the p1-listener script will be handled.</li> 
+ </ul>
