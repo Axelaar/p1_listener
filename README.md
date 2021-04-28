@@ -113,7 +113,8 @@ If all went well, you can now run the script.  What the script will do:
   <li>Read the DSMR version of the smart meter from the standard telegram .txt file, and set the COM port configurations accordingly.</li>
   <li>Start the infinite loop listening to the p1 telegrams.</li>
 </ul>
-Data is transmitted only if the value of the particular variable has changed.
-kWh counter values (so: the meter readings) are sent every 5 minutes.
-Gas counter value (if used) is sent every time when the meter sends a gas counter update (once per hour for DSMR 4 or lower, and once every 5 minutes for DSMR 5).
+Data is transmitted only if the value of the particular variable has changed.<br>
+kWh counter values (so: the meter readings) are sent every 5 minutes.<br>
+Gas counter value (if used) is sent every time when the meter sends a gas counter update (once per hour for DSMR 4 or lower, and once every 5 minutes for DSMR 5).<br>
 If selected, a daily log is written of the counter values at midnight local time.
+
