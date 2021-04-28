@@ -100,3 +100,8 @@ p1_listener uses local libraries that can also be used by other scripts.  These 
   <li>update_rrd.py</li>
   <li>ws_transmit.py</li>
 </ul>
+<h1>Install the primary script and it's configuration file</h1>
+Install the p1_listener.py and p1_listener.config files in the /home/pi directory.
+Edit the config file to fit the requirements of the installation.  
+Note that the uncommented lines at the beginning of the file, up to and including the lines listed directly under 'Other required variables' are required and must remain uncommented.
+As an editing example, if data is to be sent to a server using an IP telegram, set the 'use_IP_telegram' line from 'False' to 'True'.  Subsequently uncomment, add to  and edit the lines in the IP telegram section.
