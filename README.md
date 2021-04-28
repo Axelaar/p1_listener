@@ -93,3 +93,10 @@ The p1_listener script relies on a telegram definition file.  This file can be c
       Comment out or uncomment the object_list lines in the this script so that only the lines with the OBIS codes that
     are needed by the p1-listener script will be handled.</li> 
  </ul>
+<h1>Install the local library files</h1>
+p1_listener uses local libraries that can also be used by other scripts.  These library files are expected to be in directory /home/pi/local_lib/.  Library file  'custom_functions.py' contains required libraries.  Depending on which output methods are used, one or more of the following library files are needed:
+<ul>
+  <li>IP_transmit.py</li>
+  <li>update_rrd.py</li>
+  <li>ws_transmit.py</li>
+</ul>
