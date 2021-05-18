@@ -25,7 +25,7 @@ Set the timezone  to UTC to avoid missing data or gaps in data when changing to 
 </ul>
 <h4>Create directories for organizing files</h4>
 The directory <i>graphs</i> is used with RRDtool, <i>websocketdata</i> is only used when WebSockets are used.
-<pre><code>mkdir {dsmr, graphs, local_lib, logs, websocketdata}</code></pre>
+<pre><code>mkdir dsmr graphs local_lib logs websocketdata</code></pre>
 <h4>Configure for Smart Meter data reception</h4>
 <ul>
   <li>Install the serial tool ‘cu minicom’:</li>
