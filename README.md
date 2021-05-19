@@ -82,16 +82,21 @@ Install the RRD tool and create a database with the suitable round robin archive
   <pre><code>sudo apt install rrdtool -y</code></pre>
   <pre><code>sudo pip3 install rrdtool</code></pre>
 Build the database(s).  Easiest way to create a database is to build and run a script.  Sample scripts are rrdcreatescript_elec.sh and rrdcreatescript_gas.sh. <br> 
-The sample scriptto create the electricity database can be explained as follows:
+The sample script to create the electricity database can be explained as follows:
 <ul>
   <li> Line 1 creates database 'electricity.rrd' in folder '/home/pi/data/'.  <br>
     The step size is defined as 300 seconds, so the database expects a value at least every 5 minutes.</li>
   <li> Lines 2-5 define what data needs to be sent to the database.  In this case the database expects counter values (the meter readings) of the high and low rates for power imported and exported.</li>
-  <li> The remaining lines define the data which is to be stored in teh database: Minimum, Average and Maximum rates.  Minimum and maximum are stored at a granularity of 1 hour, 6 hours and 1 day for respectively 1 year, 10 years and 25 years.</li>
+  <li> The remaining lines define the data which is to be stored in the database: Minimum, Average and Maximum rates.  Minimum and maximum are stored at a granularity of 1 hour, 6 hours and 1 day for respectively 1 year, 10 years and 25 years.</li>
   </ul>
 The script to create the gas database follows a similar path.<br>
 Obviously you can modify the script creation settings as you see fit.<br>
-More details on <a href="https://oss.oetiker.ch/rrdtool/doc/rrdcreate.en.html">this site</a>.
+More details on <a href="https://oss.oetiker.ch/rrdtool/doc/rrdcreate.en.html">this site</a>.<br>
+Sending counter data to the database from within Python looks like this:
+  <pre><code>from rrdtool import update as rrd_update;<br>
+  db = '/home/pi/data/electricity.rrd';<br>
+  ret = rrd_update(db, 'N:%s:%s:%s:%s' %(High_In, Low_In, High_Out, Low_Out));</code></pre>
+
 <h4>Optional: Install Apache Web Server, Websockets (Autobahn, Twisted)</h4>
 This section will be added later.
 <h4>Set up a symlink to enable testing of the library modules</h4>
