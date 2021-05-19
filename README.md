@@ -99,13 +99,14 @@ ret = rrd_update(db, 'N:%s:%s:%s:%s' %(High_In, Low_In, High_Out, Low_Out));</co
 After sending data for at least two step size intervals you can check the content of the database using this command from the command line:
   <pre><code>rrdtool fetch /home/pi/data/electricity.rrd AVERAGE --start -1h --end now</code></pre>
 The result would look like this:
-<pre><code>                         HighIn               LowIn             HighOut              LowOut
+<pre><code>           HighIn            LowIn          HighOut           LowOut
 1621452300: 1.6989894335e-01 0.0000000000e+00 0.0000000000e+00 0.0000000000e+00
 1621452600: 1.6179079386e-01 0.0000000000e+00 0.0000000000e+00 0.0000000000e+00
 1621452900: 1.6096484887e-01 0.0000000000e+00 0.0000000000e+00 0.0000000000e+00
 1621453200: nan nan nan nan
 </code></pre>
-The first entry on each line is the timestamp.  'nan' means 'not a number', meaning that for instance when creating a graph no data will be shown for that datapoint.
+The first entry on each line is the timestamp.  'nan' means 'not a number', meaning that for instance when creating a graph no data will be shown for that datapoint.<br>
+Note that the data in the database does not equal the counter values - the data is converted to a rate for the given period.  In the example above, there was no change in counter value for counter values 2-4, which is why the related values in the database show zero rates.
 <h4>Optional: Install Apache Web Server, Websockets (Autobahn, Twisted)</h4>
 This section will be added later.
 <h4>Set up a symlink to enable testing of the library modules</h4>
