@@ -77,7 +77,36 @@ If you installed Raspberry Pi OS Lite then it lacks the pip tool.  Install it no
 <h4>Install the python timezone library</h4>
 <pre><code>pip3 install pytz</code></pre>
 <h4>Optional: Install and configure the round robin database</h4>
-This section will be added later.
+Install the RRD tool and create a database with the suitable round robin archives.
+  <pre><code>sudo apt install python3-dev librrd-dev -y</code></pre>
+  <pre><code>sudo apt install rrdtool -y</code></pre>
+  <pre><code>sudo pip3 install rrdtool</code></pre>
+Build the database(s).  Easiest way to create a database is to build and run a script.  Sample scripts are rrdcreatescript_elec.sh and rrdcreatescript_gas.sh. <br> 
+The sample script to create the electricity database can be explained as follows:
+<ul>
+  <li> Line 1 creates database 'electricity.rrd' in folder '/home/pi/data/'.  <br>
+    The step size is defined as 300 seconds, so the database expects a value at least every 5 minutes.</li>
+  <li> Lines 2-5 define what data needs to be sent to the database.  In this case the database expects counter values (the meter readings) of the high and low rates for power imported and exported.</li>
+  <li> The remaining lines define the data which is to be stored in the database: Minimum, Average and Maximum rates.  Minimum and maximum are stored at a granularity of 1 hour, 6 hours and 1 day for respectively 1 year, 10 years and 25 years.</li>
+  </ul>
+The script to create the gas database follows a similar path.<br>
+Obviously you can modify the script creation settings as you see fit.<br>
+More details on <a href="https://oss.oetiker.ch/rrdtool/doc/rrdcreate.en.html">this site</a>.<br>
+Sending counter data to the database from within Python looks like this:
+  <pre><code>from rrdtool import update as rrd_update;<br>
+db = '/home/pi/data/electricity.rrd';<br>
+ret = rrd_update(db, 'N:%s:%s:%s:%s' %(High_In, Low_In, High_Out, Low_Out));</code></pre>
+After sending data for at least two step size intervals you can check the content of the database using this command from the command line:
+  <pre><code>rrdtool fetch /home/pi/data/electricity.rrd AVERAGE --start -1h --end now</code></pre>
+The result would look like this:
+<pre><code>           HighIn            LowIn          HighOut           LowOut
+1621452300: 1.6989894335e-01 0.0000000000e+00 0.0000000000e+00 0.0000000000e+00
+1621452600: 1.6179079386e-01 0.0000000000e+00 0.0000000000e+00 0.0000000000e+00
+1621452900: 1.6096484887e-01 0.0000000000e+00 0.0000000000e+00 0.0000000000e+00
+1621453200: nan nan nan nan
+</code></pre>
+The first entry on each line is the timestamp.  'nan' means 'not a number', meaning that for instance when creating a graph no data will be shown for that datapoint.<br>
+Note that the data in the database does not equal the counter values - the data is converted to a rate for the given period.  In the example above, there was no change in counter value for counter values 2-4, which is why the related values in the database show zero rates.
 <h4>Optional: Install Apache Web Server, Websockets (Autobahn, Twisted)</h4>
 This section will be added later.
 <h4>Set up a symlink to enable testing of the library modules</h4>
