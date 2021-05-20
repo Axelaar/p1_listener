@@ -1,4 +1,4 @@
-rrdtool create /home/logger/data/gas.rrd --step 3600   \
+rrdtool create /home/pi/data/gas.rrd --step 3600   \
 DS:Gas:COUNTER:10000:0:100000000   \
 RRA:MIN:0.5:6:1460            \
 RRA:MIN:0.5:24:3650            \
