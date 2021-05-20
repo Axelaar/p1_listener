@@ -81,8 +81,8 @@ Install the RRD tool and create a database with the suitable round robin archive
   <pre><code>sudo apt install python3-dev librrd-dev -y</code></pre>
   <pre><code>sudo apt install rrdtool -y</code></pre>
   <pre><code>sudo pip3 install rrdtool</code></pre>
-Build the database(s).  Easiest way to create a database is to build and run a script.  Sample scripts are rrdcreatescript_elec.sh and rrdcreatescript_gas.sh. <br> 
-The sample script to create the electricity database can be explained as follows:
+Build the database(s).  Easiest way to create a database is to build and run a script.  Sample scripts are rrdcreatescript_elec.sh and rrdcreatescript_gas_xx.sh. <br> 
+Scripts to create a gas database are included for capturing data every 5 minutes (DSMRv5 meters) and every hour (DSMR v4 and older meters).  The 'create' scripts are similar in setup.  The sample script to create the electricity database can be explained as follows:
 <ul>
   <li> Line 1 creates database 'electricity.rrd' in folder '/home/pi/data/'.  <br>
     The step size is defined as 300 seconds, so the database expects a value at least every 5 minutes.</li>
