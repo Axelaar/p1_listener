@@ -99,7 +99,7 @@ ret = rrd_update(db, 'N:%s:%s:%s:%s' %(High_In, Low_In, High_Out, Low_Out));</co
 After sending data for at least two step size intervals you can check the content of the database using this command from the command line:
   <pre><code>rrdtool fetch /home/pi/data/electricity.rrd AVERAGE --start -1h --end now</code></pre>
 The result would look like this:
-<pre><code>           HighIn            LowIn          HighOut           LowOut
+<pre><code>               HighIn            LowIn          HighOut           LowOut
 1621452300: 1.6989894335e-01 0.0000000000e+00 0.0000000000e+00 0.0000000000e+00
 1621452600: 1.6179079386e-01 0.0000000000e+00 0.0000000000e+00 0.0000000000e+00
 1621452900: 1.6096484887e-01 0.0000000000e+00 0.0000000000e+00 0.0000000000e+00
