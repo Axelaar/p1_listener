@@ -81,12 +81,12 @@ Install the RRD tool and create a database with the suitable round robin archive
   <pre><code>sudo apt install python3-dev librrd-dev -y</code></pre>
   <pre><code>sudo apt install rrdtool -y</code></pre>
   <pre><code>sudo pip3 install rrdtool</code></pre>
-Build the database(s).  Easiest way to create a database is to build and run a script.  Sample scripts are rrdcreatescript_elec.sh and rrdcreatescript_gas_xx.sh. <br> 
+Build the database(s).  Easiest way to create a database is to build and run a script.  Sample scripts are rrdcreatescript_elec.sh and rrdcreatescript_gas_xx.sh ('xx' stands for '5m' or '1h'). <br> 
 Scripts to create a gas database are included for capturing data every 5 minutes (DSMRv5 meters) and every hour (DSMR v4 and older meters).  The 'create' scripts are similar in setup.  The sample script to create the electricity database can be explained as follows:
 <ul>
   <li> Line 1 creates database 'electricity.rrd' in folder '/home/pi/data/'.  <br>
     The step size is defined as 300 seconds, so the database expects a value at least every 5 minutes.</li>
-  <li> Lines 2-5 define what data needs to be sent to the database.  In this case the database expects counter values (the meter readings) of the high and low rates for power imported and exported.</li>
+  <li> Lines 2-5 define what data needs to be sent to the database.  In this case the database expects the four counter values (the meter readings) of the high and low rates for power imported and exported.</li>
   <li> The remaining lines define the data which is to be stored in the database: Minimum, Average and Maximum rates.  Minimum and maximum are stored at a granularity of 1 hour, 6 hours and 1 day for respectively 1 year, 10 years and 25 years.</li>
   </ul>
 The script to create the gas database follows a similar path.<br>
