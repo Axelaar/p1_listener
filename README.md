@@ -136,12 +136,13 @@ Edit the config file to fit the requirements of the installation.
 Note that the uncommented lines at the beginning of the file, up to and including the lines listed directly under 'Other required variables' are required and must remain uncommented.
 As an editing example, if data is to be sent to a server using an IP telegram, set the 'use_IP_telegram' line from 'False' to 'True'.  Subsequently uncomment, add to  and edit the lines in the IP telegram section.
 <h1>Run the script</h1>
-If all went well, you can now run the script.  What the script will do:
+If all went well, you can now run the script.  For testing purposes you can start the script with two arbitrary arguments.  This will run the script in debug mode.  For instance, entering on the command line 'python3 p1_listener.py test' will display all the chosen settings on-screen and run the script. Adding another argument will display the data being sent for the methods selected. <br>  What the script will do:
 <ul>
   <li>Read the configuration file.</li>
   <li>Read the object definitions from the .txt file prepared in the section <i>Create the helper files</i> above.</li>
   <li>Read the DSMR version of the smart meter from the standard telegram .txt file, and set the COM port configurations accordingly.</li>
   <li>Start the infinite loop listening to the p1 telegrams.</li>
+  <li>Send data using the selected methods.</li>
 </ul>
 Data is transmitted only if the value of the particular variable has changed.<br>
 kWh counter values (so: the meter readings) are sent every 5 minutes.<br>
