@@ -1,7 +1,7 @@
 # Python3 module to be called from other scripts.
 # This script contains frequently used custom functions.
 # Created March 5, 2020 by Bram Langen.
-# Version 1.23 - Added path to the log and config file names
+# Version 1.24 - Added path to the config file name
 
 from datetime   import datetime;
 from pytz       import common_timezones, timezone;
@@ -56,7 +56,7 @@ def generate_filenames(script):
     index_end   = script.find('.');             # Find the extension dot
     scriptname  = script[index_start:index_end];
     path        = script[:index_start];
-    logfile     = path + 'logs/' + scriptname + '.log';
+    logfile     = 'logs/' + scriptname + '.log';
     configfile  = path + script[index_start:index_end] + '.config';
     return path, logfile, configfile;
 
