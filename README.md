@@ -123,7 +123,8 @@ The p1_listener script relies on a telegram definition file.  This file can be c
     are needed by the p1-listener script will be handled.</li> 
  </ul>
 <h1>Install the local library files</h1>
-p1_listener uses local libraries that can also be used by other scripts.  These library files are expected to be in directory /home/pi/local_lib/.  Library file  'custom_functions.py' contains required libraries.  Depending on which output methods are used, one or more of the following library files are needed:
+p1_listener uses local libraries that can also be used by other scripts.  These library files are expected to be in directory /home/pi/local_lib/.  <br>
+Library file  '<b>custom_functions.py</b>' contains required libraries.  Depending on which output methods are used, one or more of the following library files will also be needed:
 <ul>
   <li>IP_transmit.py</li>
   <li>update_rrd.py</li>
