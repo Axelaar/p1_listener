@@ -3,8 +3,9 @@
 # Use the USB0 port to trap a single telegram, and
 # write the relevant portion to a file.
 # Created by Bram Langen - Apr 26, 2021
-# version 1.0
+# version 1.1 - Minor modifications
 
+from    colorama                    import Fore, Style
 from    pathlib import Path;
 import  serial;
 import  sys;
@@ -20,9 +21,9 @@ if not sys.version_info >= (3, 5):
 ############################################################
 # Initialize variables
 ############################################################
-dsmr_path           = '/home/pi/dsmr';
+dsmr_path           = '/home/pi/dsmr/';
 line_count          = 0;
-output_file         = dsmr_path + '/standard_telegram.txt';
+output_file         = dsmr_path + 'standard_telegram.txt';
 port_timeout        = 20;
 port_name           = '/dev/ttyUSB0';
 opening_line_found  = False;
@@ -31,12 +32,13 @@ use_config          = None;
 ############################################################
 # Tell the user what the script will do
 ############################################################
-print('     \r\nThis script captures a single telegram from the p1 port');
+print('');
+print('     This script captures a single telegram from the p1 port');
 print('     of a smart meter complying with DSMR or ESMR standards.\r\n');
-print("     If it does not exist, directory 'dsmr' will be created");
+print(f"     If it does not exist, directory '{Style.BRIGHT}dsmr{Style.NORMAL}' will be created");
 print('     in the pi home directory.\r\n');
-print("     The content of the telegram will be written to '{0}'.".format(output_file));
-print('     The p1 converter cable is expected to use port {0}.'.format(port_name));
+print(f'     The content of the telegram will be written to {Style.BRIGHT}{output_file}{Style.NORMAL}.');
+print(f'     The p1 converter cable is expected to use port {Style.BRIGHT}{port_name}{Style.NORMAL}.\r\n');
 print('');
 answer = input('Press the enter key to continue, or any key + enter to quit: ');
 if answer != '':
@@ -74,18 +76,19 @@ ser2.port     = port_name;
 # Two 'no data' receipts are required to decide that
 # the serial configuration returns no data.
 ############################################################
-print('Port timeout has been set at {0} seconds, testing ports may take a minute'.format(port_timeout));
+print(f'Port timeout has been set at {Style.BRIGHT}{port_timeout}{Style.NORMAL} seconds, testing ports may take a minute');
 for ser in (ser2, ser1):
     blank_line_counter  = 0;
     try:
         ser.open();
     except:
-        sys.exit('Error opening port {0}, script halted.'.format(ser.name));
-    print('Flushing buffers of port {0}'.format(ser.name));
+        print(f'{Style.BRIGHT}{Fore.RED}Error opening port {ser.name}, script halted.{Style.RESET_ALL}');
+        sys.exit();
+    print(f'Flushing buffers of port {ser.name}');
     ser.flushInput();
     ser.flushOutput();
     sleep(1);      # Some time is needed to actually flush the port.
-    print('Reading port {0} using baudrate {1}'.format(ser.name, ser.baudrate));
+    print(f'Reading port {ser.name} using baudrate {ser.baudrate}');
     while True:
         # Print every line received to the console
         try:
@@ -108,12 +111,13 @@ for ser in (ser2, ser1):
                 print(p1_line);
                 blank_line_counter = 0;
         except:
-            sys.exit ('Error reading port {0}, script halted.'.format(ser1.name));
+            print(f'{Style.BRIGHT}{Fore.RED}Error reading port {ser1.name}, script halted.{Style.RESET_ALL}');
+            sys.exit ();
     ser.close();
     if use_config != None:
         break;
 if use_config == None:
-    print('\r\nNo matching port configuration found, no reference file created.\r\n');
+    print('\r\n{Style.BRIGHT}{Fore.YELLOW}No matching port configuration found, no reference file created.{Style.RESET_ALL}\r\n');
 else:
     ##########################################################
     # Create the directory if it does not yet exist.
@@ -129,7 +133,7 @@ else:
     ser.flushOutput();
     sleep(1);
     f = open(output_file, 'w+');
-    print('\r\nWriting one complete telegram to file {0}'.format(output_file));
+    print(f'\r\nWriting one complete telegram to {output_file}');
     print('Waiting for the next telegram to arrive...');
     while True:
         p1_raw  = ser.readline();
@@ -145,5 +149,5 @@ else:
                     break;
     f.close();
     ser.close();
-    print('\r\nDone!  \r\nWrote {0} lines to file {1}.\r\n'.format(line_count, output_file));
+    print(f'\r\n{Style.BRIGHT}{Fore.GREEN}Done!{Style.RESET_ALL}\r\nWrote {line_count} lines to {output_file}.\r\n');
 exit();
