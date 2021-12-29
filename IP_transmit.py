@@ -2,7 +2,7 @@
 # This script contains the custom function to send
 # IP telegrams to a server.
 # Created November 23, 2020 by Bram Langen.
-# Version 1.0 - Initial version.
+# Version 1.01 - Changed message text to English and used the new formatting method.
 
 from socket import socket, AF_INET, SOCK_DGRAM;
 
@@ -17,12 +17,11 @@ def IP_transmit(addr, data, UDPSock_error):
     try:
         UDPSock.sendto(str.encode(data), addr)
         if UDPSock_error:
-            error_msg = 'Zenden van de actuele gegevens naar de server hervat.';
+            error_msg = 'Sending of actuals data resumed.';
             UDPSock_error = False;
     except:
         if not UDPSock_error:
-            address = addr[0] + ':' + str(addr[1]);
-            error_msg = 'Fout bij het zenden van de gegevens naar server %s.' % address;
+            error_msg = f'Error sending data to server {addr[0]}:{str(addr[1])}.';
             UDPSock_error = True;
     return UDPSock_error, error_msg;
 
