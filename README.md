@@ -5,7 +5,7 @@ Smart meters in compliance with DSMR or ESMR standards are fitted with a P1-port
   <li>Raspberry Pi<br>
   Any Raspberry Pi should do, I used models zero, 2B, 3B and 4.</li>
   <li>Connector cable P1 – USB (I used the P1 Converter Cable v2 from http://www.smartmeterdashboard.nl/webshop)</li>
-  <li>Python3.5+ with modules as described below</li>
+  <li>Python3.6+ with modules as described below</li>
 </ul>
 <h1>Setting up the Raspberry Pi</h1>
 <h4>Make sure the latest updates are installed:</h4>
