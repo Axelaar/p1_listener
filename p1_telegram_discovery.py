@@ -3,7 +3,7 @@
 # Use the USB0 port to trap a single telegram, and
 # write the relevant portion to a file.
 # Created by Bram Langen - Apr 26, 2021
-# version 1.1 - Minor modifications
+# version 1.2 - Fixed print error in line 120
 
 from    colorama                    import Fore, Style
 from    pathlib import Path;
@@ -117,7 +117,7 @@ for ser in (ser2, ser1):
     if use_config != None:
         break;
 if use_config == None:
-    print('\r\n{Style.BRIGHT}{Fore.YELLOW}No matching port configuration found, no reference file created.{Style.RESET_ALL}\r\n');
+    print(f'\r\n{Style.BRIGHT}{Fore.YELLOW}No matching port configuration found, no reference file created.{Style.RESET_ALL}\r\n');
 else:
     ##########################################################
     # Create the directory if it does not yet exist.
