@@ -76,6 +76,8 @@ If you installed Raspberry Pi OS Lite then it lacks the pip tool.  Install it no
 <pre><code>sudo apt install python3-pip -y</code></pre>
 <h4>Install the python timezone library</h4>
 <pre><code>pip3 install pytz</code></pre>
+<h4>Install the colorama library</h4>
+<pre><code>pip3 install colorama</code></pre>
 <h4>Optional: Install and configure the round robin database</h4>
 Install the RRD tool and create a database with the suitable round robin archives.
   <pre><code>sudo apt install python3-dev librrd-dev -y</code></pre>
