@@ -18,7 +18,7 @@
 # Configuration settings are taken from /home/pi/dsmr/dsmr_definition.conf.
 #
 # Created by Bram Langen - Mar 5, 2020.
-# v1.50 - Modified to work with a config file.
+# v1.51 - Removed 'local_lib.' from line 30.
 
 from    colorama                   import Fore, Style
 from    configparser               import ConfigParser;
@@ -27,7 +27,7 @@ from    re                         import sub as substitute;
 import  sys;
 # Add the local library to the default path listing.
 sys.path.insert(0, '/home/pi/local_lib');
-from    local_lib.custom_functions import *;
+from    custom_functions import *;
 
 ############################################################
 # Obtain the config file name based on the
