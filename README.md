@@ -137,7 +137,7 @@ Install the p1_listener.py and p1_listener.config files in the /home/pi director
 Edit the config file to fit the requirements of the installation.  <br>
 As an editing example, if data is to be sent to a server using an IP telegram, the 'host' and 'timer' entries in the '[IP telegrams]' section must be uncommented as well as at least one obis code.
 <h1>Run the script</h1>
-If all went well, you can now run the script.  For testing purposes you can start the script with two arbitrary arguments.  This will run the script in debug mode.  For instance, entering on the command line 'python3 p1_listener.py test' will display all the chosen settings on-screen and run the script. Adding another argument will display the data being sent for the methods selected. <br>  What the script will do:
+If all went well, you can now run the script.  For testing purposes you can start the script with an arbitrary argument.  This will run the script in debug mode.  For instance, entering on the command line 'python3 p1_listener.py test' will run the script and display all the chosen settings on-screen as well as  display the data being sent for the methods selected. <br>  What the script will do:
 <ul>
   <li>Read the configuration file.</li>
   <li>Read the object definitions from the .txt file prepared in the section <i>Create the helper files</i> above.</li>
