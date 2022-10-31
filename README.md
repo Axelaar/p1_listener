@@ -135,8 +135,7 @@ Library file  '<b>custom_functions.py</b>' contains required libraries.  Dependi
 <h1>Install the primary script and it's configuration file</h1>
 Install the p1_listener.py and p1_listener.config files in the /home/pi directory.
 Edit the config file to fit the requirements of the installation.  
-Note that the uncommented lines at the beginning of the file, up to and including the lines listed directly under 'Other required variables' are required and must remain uncommented.
-As an editing example, if data is to be sent to a server using an IP telegram, set the 'use_IP_telegram' line from 'False' to 'True'.  Subsequently uncomment, add to  and edit the lines in the IP telegram section.
+As an editing example, if data is to be sent to a server using an IP telegram, the 'host' and 'timer' entries in the '[IP telegrams]' section must be uncommented and at least one obis code must be uncommented.
 <h1>Run the script</h1>
 If all went well, you can now run the script.  For testing purposes you can start the script with two arbitrary arguments.  This will run the script in debug mode.  For instance, entering on the command line 'python3 p1_listener.py test' will display all the chosen settings on-screen and run the script. Adding another argument will display the data being sent for the methods selected. <br>  What the script will do:
 <ul>
