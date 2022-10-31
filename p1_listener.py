@@ -16,7 +16,7 @@
 # when the network is up.
 #
 # Created by Bram Langen - Mar 3, 2020
-# version 4.01 - Switched to configparser.
+# version 4.10 - Added error trapping in parser section.
 
 from    colorama                    import Fore, Style
 from    configparser                import ConfigParser;
@@ -27,7 +27,11 @@ import  sys;
 from    time                        import sleep;
 # Add the local library to the default path listing.
 sys.path.insert(0, '/home/pi/local_lib');
-from    local_lib.custom_functions  import *;
+try:
+    from custom_functions  import *;
+except:
+    print(f'{Style.BRIGHT}{Fore.RED}Error importing from module {Fore.WHITE}custom_functions{Fore.RED}, script halted.{Style.RESET_ALL}');
+    exit();
 
 ############################################################
 # For testing purposes this this script is to be called with 
@@ -115,8 +119,18 @@ if isfile(configfile):
             use_IP_telegram         = True;
             host                    = parser['IP telegrams']['host'];
             timer_IP                = int(parser['IP telegrams']['timer']);
-            from socket import socket, AF_INET, SOCK_DGRAM;
-            from local_lib.IP_transmit import *;
+            try:
+                from socket import socket, AF_INET, SOCK_DGRAM;
+            except:
+                print(f'{Style.BRIGHT}{Fore.RED}Error importing from module: {Fore.WHITE}socket{Style.RESET_ALL}');
+                write_log_entry('a', 'Error importing from module "socket"', logsettings);
+                exit();
+            try:
+                from IP_transmit import *;
+            except:
+                print(f'{Style.BRIGHT}{Fore.RED}Error importing from module: {Fore.WHITE}IP_transmit{Style.RESET_ALL}');
+                write_log_entry('a', 'Error importing from module IP_transmit', logsettings);
+                exit();
             UDPSock                 = socket(AF_INET, SOCK_DGRAM);
             UDPSock_error           = False;
             IP_object_list          = [];
@@ -142,8 +156,18 @@ if isfile(configfile):
             use_ws_telegram         = True;
             ws_connection           = parser['websocket']['connection detail'];
             timer_ws                = int(parser['websocket']['timer']);
-            from websocket import create_connection;
-            from local_lib.ws_transmit import *;
+            try:
+                from websocket import create_connection;
+            except:
+                print(f'{Style.BRIGHT}{Fore.RED}Error importing from module: {Fore.WHITE}websocket{Style.RESET_ALL}');
+                write_log_entry('a', 'Error importing from module "websocket"', logsettings);
+                exit();
+            try:
+                from ws_transmit import *;
+            except:
+                print(f'{Style.BRIGHT}{Fore.RED}Error importing from module: {Fore.WHITE}ws_transmit{Style.RESET_ALL}');
+                write_log_entry('a', 'Error importing from module "ws_transmit"', logsettings);
+                exit();
             ws_object_list          = [];
             if debug: 
                 print(f'\r\nUse Websocket?  {Style.BRIGHT}{str(use_ws_telegram)}{Style.NORMAL}');
@@ -169,7 +193,12 @@ if isfile(configfile):
             if 'rrddb_g' in parser['database']:
                 rrddb_g             = path + parser['database']['rrddb_g'];
             timer_rrd               = int(parser['database']['timer']);
-            from local_lib.update_rrd import *;
+            try:
+                from update_rrd import *;
+            except:
+                print(f'{Style.BRIGHT}{Fore.RED}Error importing from module: {Fore.WHITE}update_rrd{Style.RESET_ALL}');
+                write_log_entry('a', 'Error importing from module "update_rrd"', logsettings);
+                exit();
             write_log               = True;
             rrd_object_list         = [];
             if debug: 
@@ -193,8 +222,8 @@ if isfile(configfile):
             exit(0);
     except:
         if debug:
-            print('Error in config file.');
-        write_log_entry('a', 'Error in config file, script halted.', logsettings);
+            print('Error while parsing config file, script halted.');
+        write_log_entry('a', 'Error while parsing config file, script halted.', logsettings);
         exit(0);
 else:
     message = f'Config file {configfile} not found, script halted..';
@@ -624,64 +653,64 @@ while True:
                         ws_transmit(ws_connection, object_list[index].ws_id, kw_actual_out, delimiter);
             elif object_list[index].obis == '1-0:21.7.0':
                 # This is the actual power in for phase A, in kW.
-                if kw_actual_in_A != previous_kw_actual_in_A:
-                    previous_kw_actual_in_A = kw_actual_in_A;
+                if kw_actual_in_a != previous_kw_actual_in_a:
+                    previous_kw_actual_in_a = kw_actual_in_a;
                     if debug:
-                        print(f'1-0:21.7.0 \t{kw_actual_in_A}');
+                        print(f'1-0:21.7.0 \t{kw_actual_in_a}');
                     if '1-0:21.7.0' in IP_obis_list:
-                        UDPSock_error, error_msg = IP_transmit(addr, str(kw_actual_in_A), UDPSock_error);
+                        UDPSock_error, error_msg = IP_transmit(addr, str(kw_actual_in_a), UDPSock_error);
                     if '1-0:21.7.0' in ws_obis_list:
-                        ws_transmit(ws_connection, object_list[index].ws_id, kw_actual_in_A, delimiter);
+                        ws_transmit(ws_connection, object_list[index].ws_id, kw_actual_in_a, delimiter);
             elif object_list[index].obis == '1-0:41.7.0':
                 # This is the actual power for phase B, in kW.
-                if kw_actual_in_B != previous_kw_actual_in_B:
-                    previous_kw_actual_in_B = kw_actual_in_B;
+                if kw_actual_in_b != previous_kw_actual_in_b:
+                    previous_kw_actual_in_b = kw_actual_in_b;
                     if debug:
-                        print(f'1-0:41.7.0 \t{kw_actual_in_B}');
+                        print(f'1-0:41.7.0 \t{kw_actual_in_b}');
                     if '1-0:41.7.0' in IP_obis_list:
-                        UDPSock_error, error_msg = IP_transmit(addr, str(kw_actual_in_B), UDPSock_error);
+                        UDPSock_error, error_msg = IP_transmit(addr, str(kw_actual_in_b), UDPSock_error);
                     if '1-0:41.7.0' in ws_obis_list:
-                        ws_transmit(ws_connection, object_list[index].ws_id, kw_actual_in_B, delimiter);
+                        ws_transmit(ws_connection, object_list[index].ws_id, kw_actual_in_b, delimiter);
             elif object_list[index].obis == '1-0:61.7.0':
                 # This is the actual power for phase C, in kW.
-                if kw_actual_in_C != previous_kw_actual_in_C:
-                    previous_kw_actual_in_C = kw_actual_in_C;
+                if kw_actual_in_c != previous_kw_actual_in_c:
+                    previous_kw_actual_in_c = kw_actual_in_c;
                     if debug:
-                        print(f'1-0:61.7.0 \t{kw_actual_in_C}');
+                        print(f'1-0:61.7.0 \t{kw_actual_in_c}');
                     if '1-0:61.7.0' in IP_obis_list:
-                        UDPSock_error, error_msg = IP_transmit(addr, str(kw_actual_in_C), UDPSock_error);
+                        UDPSock_error, error_msg = IP_transmit(addr, str(kw_actual_in_c), UDPSock_error);
                     if '1-0:61.7.0' in ws_obis_list:
-                        ws_transmit(ws_connection, object_list[index].ws_id, kw_actual_in_C, delimiter);
+                        ws_transmit(ws_connection, object_list[index].ws_id, kw_actual_in_c, delimiter);
             elif object_list[index].obis == '1-0:22.7.0':
                 # This is the actual power out for phase A, in kW.
-                if kw_actual_out_A != previous_kw_actual_out_A:
-                    previous_kw_actual_out_A = kw_actual_out_A;
+                if kw_actual_out_a != previous_kw_actual_out_a:
+                    previous_kw_actual_out_a = kw_actual_out_a;
                     if debug:
-                        print(f'1-0:22.7.0 \t{kw_actual_out_A}');
+                        print(f'1-0:22.7.0 \t{kw_actual_out_a}');
                     if '1-0:22.7.0' in IP_obis_list:
-                        UDPSock_error, error_msg = IP_transmit(addr, str(kw_actual_out_A), UDPSock_error);
+                        UDPSock_error, error_msg = IP_transmit(addr, str(kw_actual_out_a), UDPSock_error);
                     if '1-0:22.7.0' in ws_obis_list:
-                        ws_transmit(ws_connection, object_list[index].ws_id, kw_actual_out_A, delimiter);
+                        ws_transmit(ws_connection, object_list[index].ws_id, kw_actual_out_a, delimiter);
             elif object_list[index].obis == '1-0:42.7.0':
                 # This is the actual power for phase B, in kW.
-                if kw_actual_out_B != previous_kw_actual_out_B:
-                    previous_kw_actual_out_B = kw_actual_out_B;
+                if kw_actual_out_b != previous_kw_actual_out_b:
+                    previous_kw_actual_out_b = kw_actual_out_b;
                     if debug:
-                        print(f'1-0:42.7.0 \t{kw_actual_out_B}');
+                        print(f'1-0:42.7.0 \t{kw_actual_out_b}');
                     if '1-0:42.7.0' in IP_obis_list:
-                        UDPSock_error, error_msg = IP_transmit(addr, str(kw_actual_out_B), UDPSock_error);
+                        UDPSock_error, error_msg = IP_transmit(addr, str(kw_actual_out_b), UDPSock_error);
                     if '1-0:42.7.0' in ws_obis_list:
-                        ws_transmit(ws_connection, object_list[index].ws_id, kw_actual_out_B, delimiter);
+                        ws_transmit(ws_connection, object_list[index].ws_id, kw_actual_out_b, delimiter);
             elif object_list[index].obis == '1-0:62.7.0':
                 # This is the actual power for phase C, in kW.
-                if kw_actual_out_C != previous_kw_actual_out_C:
-                    previous_kw_actual_out_C = kw_actual_out_C;
+                if kw_actual_out_c != previous_kw_actual_out_c:
+                    previous_kw_actual_out_c = kw_actual_out_c;
                     if debug:
-                        print(f'1-0:62.7.0 \t{kw_actual_out_C}');
+                        print(f'1-0:62.7.0 \t{kw_actual_out_c}');
                     if '1-0:62.7.0' in IP_obis_list:
-                        UDPSock_error, error_msg = IP_transmit(addr, str(kw_actual_out_C), UDPSock_error);
+                        UDPSock_error, error_msg = IP_transmit(addr, str(kw_actual_out_c), UDPSock_error);
                     if '1-0:62.7.0' in ws_obis_list:
-                        ws_transmit(ws_connection, object_list[index].ws_id, kw_actual_out_C, delimiter);
+                        ws_transmit(ws_connection, object_list[index].ws_id, kw_actual_out_c, delimiter);
             elif object_list[index].obis == '1-0:32.7.0':
                 # This is the actual voltage for phase A, in V.
                 if v_pha != previous_v_pha:
@@ -800,7 +829,8 @@ while True:
                                 if obis == log_object[1]:
                                     index = obis_list.index(obis);
                                     break;
-                            exec(f'f.write (str({object_list[index].variable}))');
+                            exec(f'rrd_val = ({object_list[index].variable})');
+                            f.write (f'{rrd_val:.3f}'); #Always write 3 decimals
                             f.write (delimiter);
                         for log_object in log_object_list:
                             for obis in obis_list:
