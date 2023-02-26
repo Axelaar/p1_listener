@@ -16,7 +16,7 @@
 # when the network is up.
 #
 # Created by Bram Langen - Mar 3, 2020
-# version 4.10 - Added error trapping in parser section.
+# version 4.11 - Fixed incorrect reference in line 187, and added the 'else' condition of line 216, and added a space in line 461.
 
 from    colorama                    import Fore, Style
 from    configparser                import ConfigParser;
@@ -184,7 +184,7 @@ if isfile(configfile):
         else:
             use_ws_telegram         = False;
             if debug: 
-                print(f'\r\nUse Websocket?  {Style.BRIGHT}{str(use_IP_telegram)}{Style.NORMAL}');
+                print(f'\r\nUse Websocket?  {Style.BRIGHT}{str(use_ws_telegram)}{Style.NORMAL}');
         ###############  DATABASE  ##############
         if len(parser['database']) > 0:
             use_rrd                 = True;
@@ -213,6 +213,10 @@ if isfile(configfile):
                     if debug and 'rrddb_e' in locals():
                         print(f'{Style.BRIGHT}{parser["database"][key]}{Style.NORMAL}');
                     rrd_object_list.append(parser['database'][key]);
+        else:
+            use_rrd                 = False;
+            if debug: 
+                print(f'\r\nUse RRD?  {Style.BRIGHT}{str(use_rrd)}{Style.NORMAL}');
         ###############  Wrap-up  ##############
         logsettings = path + logfile, target_timezone;
         if not use_IP_telegram and not use_rrd and not use_ws_telegram:
@@ -454,7 +458,7 @@ elif dsmr_version > '3':
     ser.rtscts      = 0;
 
 if debug:
-    print(f'\r\nport settings are: {Style.BRIGHT}{ser.baudrate}'
+    print(f'\r\nport settings are: {Style.BRIGHT}{ser.baudrate} '
         f'{ser.bytesize} {ser.parity} {ser.stopbits}{Style.NORMAL}\r\n');
 
 #############################################################
